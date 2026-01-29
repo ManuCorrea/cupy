@@ -4,19 +4,6 @@ from cupy_backends.cuda.api cimport driver
 
 
 cdef extern from *:
-    """
-    #if CUPY_CUDA_VERSION > 0
-        typedef struct cudaMemLocation MemLocation;
-        typedef struct cudaMemPoolProps MemPoolProps;
-    #else
-        /* Dummy definitions for HIP/RTD to prevent compilation errors */
-        typedef struct { int type; int id; } MemLocation;
-        typedef struct {
-            int allocType; int handleTypes; MemLocation location;
-        } MemPoolProps;
-    #endif
-    """
-
     ctypedef int Error 'cudaError_t'
     ctypedef int DataType 'cudaDataType'
 
@@ -130,6 +117,20 @@ cdef extern from *:
     ctypedef int MemAllocationType 'cudaMemAllocationType'
     ctypedef int MemAllocationHandleType 'cudaMemAllocationHandleType'
     ctypedef int MemLocationType 'cudaMemLocationType'
+    IF CUPY_CUDA_VERSION > 0:
+        # This is for the annoying nested struct, which is not
+        # perfectly supported in Cython
+        ctypedef struct _MemLocation 'cudaMemLocation':
+            MemLocationType type
+            int id
+
+        ctypedef struct _MemPoolProps 'cudaMemPoolProps':
+            MemAllocationType allocType
+            MemAllocationHandleType handleTypes
+            _MemLocation location
+    ELSE:
+        ctypedef struct _MemPoolProps 'cudaMemPoolProps':
+            pass  # for HIP & RTD
 
     # Map directly to 'cudaMemLocation'
     ctypedef struct _MemLocation 'cudaMemLocation':
