@@ -626,7 +626,7 @@ cpdef Py_ssize_t get_plan_cache_size() noexcept:
 
 
 # TODO(leofang): remove experimental warning when scipy/scipy#12512 is merged
-cpdef set_plan_cache_size(size) noexcept:
+cpdef set_plan_cache_size(size):
     _util.experimental('cupy.fft.cache.set_plan_cache_size')
     cdef PlanCache cache = get_plan_cache()
     cache.set_size(size)

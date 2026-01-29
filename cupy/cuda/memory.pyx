@@ -1070,7 +1070,7 @@ cdef class _LockAndNoGc:
         _unlock_no_gc(cython.operator.dereference(self._lock), self._gc)
 
 
-cdef lock_and_no_gc(recursive_mutex& lock) except *:
+cdef lock_and_no_gc(recursive_mutex& lock):
     cdef _LockAndNoGc self = _LockAndNoGc.__new__(_LockAndNoGc)
     self._lock = &lock
     return self
@@ -1604,7 +1604,7 @@ cdef class MemoryPool:
             allocator = _malloc
         self._allocator = allocator
 
-    cdef _ensure_pools_and_return_device_pool(self) except *:
+    cdef _ensure_pools_and_return_device_pool(self):
         # assume we get to create the pools (we may not be the only one)
         n_gpu = runtime.getDeviceCount() # has except? -1
         pools = tuple(

@@ -38,7 +38,7 @@ cdef class _AbstractReductionKernel:
         stream, params) noexcept
 
     cdef tuple _get_expressions_and_types(
-        self, list in_args, list out_args, dtype) except *
+        self, list in_args, list out_args, dtype)
 
     cdef list _get_out_args(
         self, list out_args, tuple out_types, const shape_t& out_shape)

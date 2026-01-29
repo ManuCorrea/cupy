@@ -63,7 +63,7 @@ cpdef spDestroy(intptr_t handle)
 # Stream
 ###############################################################################
 
-cpdef setStream(intptr_t handle, size_t stream) except *
+cpdef setStream(intptr_t handle, size_t stream)
 cpdef size_t getStream(intptr_t handle) except? 0
 
 ###############################################################################

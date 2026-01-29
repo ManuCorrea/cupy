@@ -501,7 +501,7 @@ cdef class _AbstractReductionKernel:
             out_block_num * block_size, inout_args, 0, block_size, stream)
 
     cdef tuple _get_expressions_and_types(
-            self, list in_args, list out_args, dtype) except *:
+            self, list in_args, list out_args, dtype):
         raise NotImplementedError()
 
     cdef list _get_out_args(
@@ -613,7 +613,7 @@ cdef class _SimpleReductionKernel(_AbstractReductionKernel):
             None, True, self._sort_reduce_axis)
 
     cdef tuple _get_expressions_and_types(
-            self, list in_args, list out_args, dtype) except *:
+            self, list in_args, list out_args, dtype):
         cdef _kernel._Op op
 
         op = self._ops.guess_routine(
@@ -825,7 +825,7 @@ cdef class ReductionKernel(_AbstractReductionKernel):
             keepdims, self.reduce_dims, dev_id, stream, True, True)
 
     cdef tuple _get_expressions_and_types(
-            self, list in_args, list out_args, dtype) except *:
+            self, list in_args, list out_args, dtype):
 
         in_ndarray_types = tuple(
             [a.dtype.type if isinstance(a, _ndarray_base) else None

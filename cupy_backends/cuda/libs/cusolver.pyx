@@ -1158,7 +1158,7 @@ cpdef spDestroy(intptr_t handle):
 # Stream
 ###############################################################################
 
-cpdef setStream(intptr_t handle, size_t stream) except *:
+cpdef setStream(intptr_t handle, size_t stream):
     # TODO(leofang): The support of stream capture is not mentioned at all in
     # the cuSOLVER docs (as of CUDA 11.5), so we disable this functionality.
     if not runtime._is_hip_environment and runtime.streamIsCapturing(stream):
