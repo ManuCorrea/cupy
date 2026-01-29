@@ -11,7 +11,9 @@ cdef extern from *:
     #else
         /* Dummy definitions for HIP/RTD to prevent compilation errors */
         typedef struct { int type; int id; } MemLocation;
-        typedef struct { int allocType; int handleTypes; MemLocation location; } MemPoolProps;
+        typedef struct {
+            int allocType; int handleTypes; MemLocation location;
+        } MemPoolProps;
     #endif
     """
 
@@ -128,7 +130,6 @@ cdef extern from *:
     ctypedef int MemAllocationType 'cudaMemAllocationType'
     ctypedef int MemAllocationHandleType 'cudaMemAllocationHandleType'
     ctypedef int MemLocationType 'cudaMemLocationType'
-
 
     # Map directly to 'cudaMemLocation'
     ctypedef struct _MemLocation 'cudaMemLocation':

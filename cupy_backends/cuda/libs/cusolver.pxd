@@ -473,18 +473,22 @@ cpdef xgesvdjSetSortEig(intptr_t info, int sort_svd)
 cpdef double xgesvdjGetResidual(intptr_t handle, intptr_t info) noexcept
 cpdef int xgesvdjGetSweeps(intptr_t handle, intptr_t info) noexcept
 
-cpdef int sgesvdj_bufferSize(intptr_t handle, int jobz, int econ, int m, int n,
-                             intptr_t A, int lda, intptr_t S, intptr_t U,
-                             int ldu, intptr_t V, int ldv, intptr_t params) except *
-cpdef int dgesvdj_bufferSize(intptr_t handle, int jobz, int econ, int m, int n,
-                             intptr_t A, int lda, intptr_t S, intptr_t U,
-                             int ldu, intptr_t V, int ldv, intptr_t params) except *
-cpdef int cgesvdj_bufferSize(intptr_t handle, int jobz, int econ, int m, int n,
-                             intptr_t A, int lda, intptr_t S, intptr_t U,
-                             int ldu, intptr_t V, int ldv, intptr_t params) except *
-cpdef int zgesvdj_bufferSize(intptr_t handle, int jobz, int econ, int m, int n,
-                             intptr_t A, int lda, intptr_t S, intptr_t U,
-                             int ldu, intptr_t V, int ldv, intptr_t params) except *
+cpdef int sgesvdj_bufferSize(
+        intptr_t handle, int jobz, int econ, int m, int n,
+        intptr_t A, int lda, intptr_t S, intptr_t U,
+        int ldu, intptr_t V, int ldv, intptr_t params) except *
+cpdef int dgesvdj_bufferSize(
+        intptr_t handle, int jobz, int econ, int m, int n,
+        intptr_t A, int lda, intptr_t S, intptr_t U,
+        int ldu, intptr_t V, int ldv, intptr_t params) except *
+cpdef int cgesvdj_bufferSize(
+        intptr_t handle, int jobz, int econ, int m, int n,
+        intptr_t A, int lda, intptr_t S, intptr_t U,
+        int ldu, intptr_t V, int ldv, intptr_t params) except *
+cpdef int zgesvdj_bufferSize(
+        intptr_t handle, int jobz, int econ, int m, int n,
+        intptr_t A, int lda, intptr_t S, intptr_t U,
+        int ldu, intptr_t V, int ldv, intptr_t params) except *
 
 cpdef sgesvdj(intptr_t handle, int jobz, int econ, int m, int n, intptr_t A,
               int lda, intptr_t S, intptr_t U, int ldu, intptr_t V, int ldv,

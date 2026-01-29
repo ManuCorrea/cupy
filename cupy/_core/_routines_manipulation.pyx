@@ -145,7 +145,8 @@ cdef _ndarray_base _ndarray_flatten_order_c(_ndarray_base self):
     return newarray
 
 
-cdef vector.vector[Py_ssize_t] _npyiter_k_order_axes(strides_t& strides) except *:
+cdef vector.vector[Py_ssize_t] _npyiter_k_order_axes(
+        strides_t& strides) except *:
     # output transpose axes such that
     # x.flatten(order="K") == x.transpose(axes).flatten(order="C")
     # by reproducing `npyiter_find_best_axis_ordering`

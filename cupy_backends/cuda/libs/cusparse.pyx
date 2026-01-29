@@ -1551,7 +1551,8 @@ cdef inline cuComplex complex_to_cuda(complex value) noexcept:
 
 
 @cython.profile(False)
-cdef inline cuDoubleComplex double_complex_to_cuda(double complex value) noexcept:
+cdef inline cuDoubleComplex double_complex_to_cuda(
+        double complex value) noexcept:
     cdef cuDoubleComplex value_cuda
     value_cuda.x = value.real
     value_cuda.y = value.imag

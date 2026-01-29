@@ -397,7 +397,8 @@ cdef class PlanCache:
         if size < -1 or memsize < -1:
             raise ValueError('invalid input')
 
-    cdef void _set_size_memsize(self, Py_ssize_t size, Py_ssize_t memsize) noexcept:
+    cdef void _set_size_memsize(
+            self, Py_ssize_t size, Py_ssize_t memsize) noexcept:
         self.size = size
         self.memsize = memsize
         self.is_enabled = (size != 0 and memsize != 0)

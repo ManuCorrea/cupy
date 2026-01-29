@@ -171,7 +171,8 @@ cpdef shape_t _get_out_shape(
 
 
 cdef shape_t _set_permuted_args(
-        list args, tuple axis_permutes, const shape_t& shape, tuple params) except *:
+        list args, tuple axis_permutes, const shape_t& shape,
+        tuple params) except *:
     # This function updates `args`
     cdef ParameterInfo p
     cdef Py_ssize_t i, s

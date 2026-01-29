@@ -16,7 +16,8 @@ cpdef bint is_in(const vector.vector[Py_ssize_t]& args, Py_ssize_t x) noexcept
 cpdef tuple get_size(object size)
 
 cpdef bint vector_equal(
-    const vector.vector[Py_ssize_t]& x, const vector.vector[Py_ssize_t]& y) noexcept
+    const vector.vector[Py_ssize_t]& x,
+    const vector.vector[Py_ssize_t]& y) noexcept
 
 cdef void get_reduced_dims(
     shape_t& shape, strides_t& strides,
@@ -26,8 +27,8 @@ cdef void get_reduced_dims(
 # Computes the contiguous strides given a shape and itemsize.
 # Returns the size (total number of elements).
 cdef Py_ssize_t get_contiguous_strides_inplace(
-    const shape_t& shape, strides_t& strides,
-    Py_ssize_t itemsize, bint is_c_contiguous, bint zeros_for_zerosize) noexcept
+    const shape_t& shape, strides_t& strides, Py_ssize_t itemsize,
+    bint is_c_contiguous, bint zeros_for_zerosize) noexcept
 
 cpdef bint get_c_contiguity(
     shape_t& shape, strides_t& strides, Py_ssize_t itemsize) noexcept

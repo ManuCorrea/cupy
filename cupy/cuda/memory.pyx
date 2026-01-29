@@ -1606,7 +1606,7 @@ cdef class MemoryPool:
 
     cdef _ensure_pools_and_return_device_pool(self):
         # assume we get to create the pools (we may not be the only one)
-        n_gpu = runtime.getDeviceCount() # has except? -1
+        n_gpu = runtime.getDeviceCount()  # has except? -1
         pools = tuple(
             SingleDeviceMemoryPool(self._allocator) for i in range(n_gpu))
 
@@ -2049,13 +2049,15 @@ ctypedef void(*free_func_type)(void*, void*, int) noexcept
 
 
 cdef intptr_t _call_malloc(
-        intptr_t param, intptr_t malloc_func, Py_ssize_t size, int device_id) noexcept:
+        intptr_t param, intptr_t malloc_func, Py_ssize_t size,
+        int device_id) noexcept:
     return <intptr_t>(
         (<malloc_func_type>malloc_func)(<void*>param, size, device_id))
 
 
 cdef void _call_free(
-        intptr_t param, intptr_t free_func, intptr_t ptr, int device_id) noexcept:
+        intptr_t param, intptr_t free_func, intptr_t ptr,
+        int device_id) noexcept:
     (<free_func_type>free_func)(<void*>param, <void*>ptr, device_id)
 
 

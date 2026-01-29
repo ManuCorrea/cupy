@@ -324,7 +324,8 @@ cdef str _get_kernel_params(tuple params, tuple arginfos):
     return ', '.join(lst)
 
 
-cdef shape_t _reduce_dims(list args, tuple params, const shape_t& shape) except *:
+cdef shape_t _reduce_dims(list args, tuple params,
+                          const shape_t& shape) except *:
     """ Remove contiguous stride to optimize CUDA kernel."""
     cdef _ndarray_base arr
 
@@ -345,7 +346,8 @@ cdef shape_t _reduce_dims(list args, tuple params, const shape_t& shape) except 
     return _reduced_view_core(args, params, shape)
 
 
-cdef shape_t _reduced_view_core(list args, tuple params, const shape_t& shape) noexcept:
+cdef shape_t _reduced_view_core(
+        list args, tuple params, const shape_t& shape) noexcept:
     cdef int i, ax, last_ax, ndim
     cdef Py_ssize_t total_size
     cdef shape_t vecshape, newshape, newstrides

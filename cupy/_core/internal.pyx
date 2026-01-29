@@ -28,7 +28,8 @@ cpdef inline Py_ssize_t prod_sequence(object args) except *:
 
 
 @cython.profile(False)
-cpdef inline bint is_in(const vector.vector[Py_ssize_t]& args, Py_ssize_t x) noexcept:
+cpdef inline bint is_in(
+        const vector.vector[Py_ssize_t]& args, Py_ssize_t x) noexcept:
     cdef Py_ssize_t i
     for i in range(<Py_ssize_t>args.size()):
         if args[i] == x:
@@ -117,8 +118,8 @@ cdef void get_reduced_dims(
 
 @cython.profile(False)
 cdef inline Py_ssize_t get_contiguous_strides_inplace(
-        const shape_t& shape, strides_t& strides,
-        Py_ssize_t itemsize, bint is_c_contiguous, bint zeros_for_zerosize) noexcept:
+        const shape_t& shape, strides_t& strides, Py_ssize_t itemsize,
+        bint is_c_contiguous, bint zeros_for_zerosize) noexcept:
     cdef Py_ssize_t st, sh
     cdef Py_ssize_t is_nonzero_size = 1
     cdef int i, ndim = shape.size()
