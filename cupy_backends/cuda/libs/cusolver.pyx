@@ -1003,7 +1003,7 @@ cdef extern from '../../cupy_lapack.h' nogil:
         cuDoubleComplex *x)
 
 
-ctypedef int (*f_type)(...) nogil  # NOQA
+ctypedef int (*f_type)(...) noexcept nogil  # NOQA
 IF 12000 <= CUPY_CUDA_VERSION < 13000:
     # CUDA 12.x
     if _sys.platform == 'linux':
@@ -1113,7 +1113,7 @@ cpdef tuple _getVersion():
             getProperty(PATCH_LEVEL))
 
 
-cpdef int _getVersionNumber():
+cpdef int _getVersionNumber() noexcept:
     """
     Returns cuSOLVER's runtime version in the same expression as
     `CUSOLVER_VERSION` defined in `cusolver_common.h`.
@@ -2809,14 +2809,14 @@ cpdef xgesvdjSetSortEig(intptr_t info, int sort_svd):
     status = cusolverDnXgesvdjSetSortEig(<GesvdjInfo>info, sort_svd)
     check_status(status)
 
-cpdef double xgesvdjGetResidual(intptr_t handle, intptr_t info):
+cpdef double xgesvdjGetResidual(intptr_t handle, intptr_t info) noexcept:
     cdef double residual
     status = cusolverDnXgesvdjGetResidual(<Handle>handle, <GesvdjInfo>info,
                                           &residual)
     check_status(status)
     return residual
 
-cpdef int xgesvdjGetSweeps(intptr_t handle, intptr_t info):
+cpdef int xgesvdjGetSweeps(intptr_t handle, intptr_t info) noexcept:
     cdef int executed_sweeps
     status = cusolverDnXgesvdjGetSweeps(<Handle>handle, <GesvdjInfo>info,
                                         &executed_sweeps)

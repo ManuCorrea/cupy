@@ -10,7 +10,7 @@ cdef Py_ssize_t _block_size
 cpdef tuple _get_axis(object axis, Py_ssize_t ndim)
 
 cpdef shape_t _get_out_shape(
-    const shape_t& shape, tuple reduce_axis, tuple out_axis, bint keepdims)
+    const shape_t& shape, tuple reduce_axis, tuple out_axis, bint keepdims) noexcept
 
 
 cdef class _AbstractReductionKernel:
@@ -35,10 +35,10 @@ cdef class _AbstractReductionKernel:
         self, out_block_num, block_size, block_stride,
         in_args, out_args, in_shape, out_shape, types,
         map_expr, reduce_expr, post_map_expr, reduce_type,
-        stream, params)
+        stream, params) noexcept
 
     cdef tuple _get_expressions_and_types(
-        self, list in_args, list out_args, dtype)
+        self, list in_args, list out_args, dtype) except *
 
     cdef list _get_out_args(
         self, list out_args, tuple out_types, const shape_t& out_shape)
@@ -67,7 +67,7 @@ cdef class ReductionKernel(_AbstractReductionKernel):
 
 
 cdef shape_t _set_permuted_args(
-    list args, tuple axis_permutes, const shape_t& shape, tuple params)
+    list args, tuple axis_permutes, const shape_t& shape, tuple params) except *
 
 cdef tuple _get_shape_and_strides(list in_args, list out_args)
 

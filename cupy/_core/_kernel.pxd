@@ -168,4 +168,4 @@ cpdef _check_peer_access(_ndarray_base arr, int device_id)
 
 cdef list _preprocess_args(int dev_id, args)
 
-cdef shape_t _reduce_dims(list args, tuple params, const shape_t& shape)
+cdef shape_t _reduce_dims(list args, tuple params, const shape_t& shape) except *

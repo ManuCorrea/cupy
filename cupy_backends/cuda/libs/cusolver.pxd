@@ -470,8 +470,8 @@ cpdef destroyGesvdjInfo(intptr_t info)
 cpdef xgesvdjSetTolerance(intptr_t info, double tolerance)
 cpdef xgesvdjSetMaxSweeps(intptr_t info, int max_sweeps)
 cpdef xgesvdjSetSortEig(intptr_t info, int sort_svd)
-cpdef double xgesvdjGetResidual(intptr_t handle, intptr_t info)
-cpdef int xgesvdjGetSweeps(intptr_t handle, intptr_t info)
+cpdef double xgesvdjGetResidual(intptr_t handle, intptr_t info) noexcept
+cpdef int xgesvdjGetSweeps(intptr_t handle, intptr_t info) noexcept
 
 cpdef int sgesvdj_bufferSize(intptr_t handle, int jobz, int econ, int m, int n,
                              intptr_t A, int lda, intptr_t S, intptr_t U,

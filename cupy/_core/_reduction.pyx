@@ -157,7 +157,7 @@ cpdef tuple _get_axis(object axis, Py_ssize_t ndim):
 
 cpdef shape_t _get_out_shape(
         const shape_t& shape, tuple reduce_axis, tuple out_axis,
-        bint keepdims):
+        bint keepdims) noexcept:
     cdef shape_t out_shape
     if keepdims:
         out_shape = shape
@@ -171,7 +171,7 @@ cpdef shape_t _get_out_shape(
 
 
 cdef shape_t _set_permuted_args(
-        list args, tuple axis_permutes, const shape_t& shape, tuple params):
+        list args, tuple axis_permutes, const shape_t& shape, tuple params) except *:
     # This function updates `args`
     cdef ParameterInfo p
     cdef Py_ssize_t i, s
@@ -475,7 +475,7 @@ cdef class _AbstractReductionKernel:
             self, out_block_num, block_size, block_stride,
             in_args, out_args, in_shape, out_shape, type_map,
             map_expr, reduce_expr, post_map_expr, reduce_type,
-            stream, params):
+            stream, params) noexcept:
         cdef function.Function func
 
         inout_args = (
@@ -501,7 +501,7 @@ cdef class _AbstractReductionKernel:
             out_block_num * block_size, inout_args, 0, block_size, stream)
 
     cdef tuple _get_expressions_and_types(
-            self, list in_args, list out_args, dtype):
+            self, list in_args, list out_args, dtype) except *:
         raise NotImplementedError()
 
     cdef list _get_out_args(
@@ -613,7 +613,7 @@ cdef class _SimpleReductionKernel(_AbstractReductionKernel):
             None, True, self._sort_reduce_axis)
 
     cdef tuple _get_expressions_and_types(
-            self, list in_args, list out_args, dtype):
+            self, list in_args, list out_args, dtype) except *:
         cdef _kernel._Op op
 
         op = self._ops.guess_routine(
@@ -825,7 +825,7 @@ cdef class ReductionKernel(_AbstractReductionKernel):
             keepdims, self.reduce_dims, dev_id, stream, True, True)
 
     cdef tuple _get_expressions_and_types(
-            self, list in_args, list out_args, dtype):
+            self, list in_args, list out_args, dtype) except *:
 
         in_ndarray_types = tuple(
             [a.dtype.type if isinstance(a, _ndarray_base) else None

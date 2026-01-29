@@ -2446,14 +2446,14 @@ cdef inline str _translate_cucomplex_to_thrust(str source):
     return ''.join(lines)
 
 
-cpdef bint use_default_std(tuple options):
+cpdef bint use_default_std(tuple options) noexcept:
     cdef str opt
     for opt in options:
         if ('-std=' in opt) or ('--std=' in opt):
             return False
     return True
 
-cpdef void warn_on_unsupported_std(tuple options):
+cpdef void warn_on_unsupported_std(tuple options) noexcept:
     cdef str opt
     for opt in options:
         if _is_hip:
