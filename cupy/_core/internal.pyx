@@ -12,7 +12,7 @@ from cupy.exceptions import AxisError
 
 
 @cython.profile(False)
-cpdef inline Py_ssize_t prod(const vector.vector[Py_ssize_t]& args):
+cpdef inline Py_ssize_t prod(const vector.vector[Py_ssize_t]& args) noexcept:
     cdef Py_ssize_t n = 1
     for i in range(args.size()):
         n *= args[i]
@@ -20,7 +20,7 @@ cpdef inline Py_ssize_t prod(const vector.vector[Py_ssize_t]& args):
 
 
 @cython.profile(False)
-cpdef inline Py_ssize_t prod_sequence(object args):
+cpdef inline Py_ssize_t prod_sequence(object args) except *:
     cdef Py_ssize_t i, n = 1
     for i in args:
         n *= i
@@ -28,7 +28,7 @@ cpdef inline Py_ssize_t prod_sequence(object args):
 
 
 @cython.profile(False)
-cpdef inline bint is_in(const vector.vector[Py_ssize_t]& args, Py_ssize_t x):
+cpdef inline bint is_in(const vector.vector[Py_ssize_t]& args, Py_ssize_t x) noexcept:
     cdef Py_ssize_t i
     for i in range(<Py_ssize_t>args.size()):
         if args[i] == x:
@@ -71,7 +71,7 @@ cpdef inline tuple get_size(object size):
 @cython.profile(False)
 cpdef inline bint vector_equal(
         const vector.vector[Py_ssize_t]& x,
-        const vector.vector[Py_ssize_t]& y):
+        const vector.vector[Py_ssize_t]& y) noexcept:
     cdef Py_ssize_t n = x.size()
     if n != <Py_ssize_t>y.size():
         return False
@@ -84,7 +84,7 @@ cpdef inline bint vector_equal(
 @cython.profile(False)
 cdef void get_reduced_dims(
         shape_t& shape, strides_t& strides, Py_ssize_t itemsize,
-        shape_t& reduced_shape, strides_t& reduced_strides):
+        shape_t& reduced_shape, strides_t& reduced_strides) noexcept:
     cdef Py_ssize_t i, ndim, sh, st, prev_st, index
     ndim = shape.size()
     reduced_shape.clear()
@@ -118,7 +118,7 @@ cdef void get_reduced_dims(
 @cython.profile(False)
 cdef inline Py_ssize_t get_contiguous_strides_inplace(
         const shape_t& shape, strides_t& strides,
-        Py_ssize_t itemsize, bint is_c_contiguous, bint zeros_for_zerosize):
+        Py_ssize_t itemsize, bint is_c_contiguous, bint zeros_for_zerosize) noexcept:
     cdef Py_ssize_t st, sh
     cdef Py_ssize_t is_nonzero_size = 1
     cdef int i, ndim = shape.size()
@@ -156,7 +156,7 @@ cdef inline Py_ssize_t get_contiguous_strides_inplace(
 
 @cython.profile(False)
 cpdef inline bint get_c_contiguity(
-        shape_t& shape, strides_t& strides, Py_ssize_t itemsize):
+        shape_t& shape, strides_t& strides, Py_ssize_t itemsize) noexcept:
     cdef Py_ssize_t i, prev_i, ndim, sh, st, index
     ndim = strides.size()
     if ndim == 0 or (ndim == 1 and strides[0] == itemsize):
@@ -286,7 +286,7 @@ cpdef tuple complete_slice_list(list slice_list, Py_ssize_t ndim):
 
 
 @cython.profile(False)
-cpdef size_t clp2(size_t x):
+cpdef size_t clp2(size_t x) noexcept:
     x -= 1
     x |= x >> 1
     x |= x >> 2
@@ -374,7 +374,7 @@ cdef _broadcast_core(list arrays, shape_t& shape):
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cpdef bint _contig_axes(tuple axes):
+cpdef bint _contig_axes(tuple axes) noexcept:
     # Indicate if the specified axes are in ascending order without gaps.
     cdef Py_ssize_t n
     cdef int n_ax = len(axes)
@@ -413,7 +413,7 @@ cpdef Py_ssize_t _normalize_axis_index(
 
 
 cpdef tuple _normalize_axis_indices(
-        axes, Py_ssize_t ndim, cpp_bool sort_axes=True):
+        axes, Py_ssize_t ndim, cpp_bool sort_axes=True) noexcept:
     """Normalize axis indices.
 
     Args:
@@ -446,7 +446,7 @@ cpdef tuple _normalize_axis_indices(
     return tuple(sorted(res) if sort_axes else res)
 
 
-cpdef strides_t _get_strides_for_order_K(x, dtype, shape=None):
+cpdef strides_t _get_strides_for_order_K(x, dtype, shape=None) except *:
     # x here can be either numpy.ndarray or cupy.ndarray
     cdef strides_t strides
     # strides used when order='K' for astype, empty_like, etc.
@@ -465,7 +465,7 @@ cpdef strides_t _get_strides_for_order_K(x, dtype, shape=None):
 
 
 cpdef int _update_order_char(
-        bint is_c_contiguous, bint is_f_contiguous, int order_char):
+        bint is_c_contiguous, bint is_f_contiguous, int order_char) noexcept:
     # update order_char based on array contiguity
     if order_char == b'A':
         if is_f_contiguous and not is_c_contiguous:
