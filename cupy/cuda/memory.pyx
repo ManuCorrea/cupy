@@ -1604,9 +1604,9 @@ cdef class MemoryPool:
             allocator = _malloc
         self._allocator = allocator
 
-    cdef _ensure_pools_and_return_device_pool(self):
+    cdef _ensure_pools_and_return_device_pool(self) except *:
         # assume we get to create the pools (we may not be the only one)
-        n_gpu = runtime.getDeviceCount()
+        n_gpu = runtime.getDeviceCount() # has except? -1
         pools = tuple(
             SingleDeviceMemoryPool(self._allocator) for i in range(n_gpu))
 
@@ -1665,7 +1665,7 @@ cdef class MemoryPool:
             DeprecationWarning)
         self.free_all_blocks()
 
-    cpdef size_t n_free_blocks(self):
+    cpdef size_t n_free_blocks(self) except *:
         """Counts the total number of free blocks.
 
         Returns:
@@ -1674,7 +1674,7 @@ cdef class MemoryPool:
         mp = <SingleDeviceMemoryPool>self.device_pool()
         return mp.n_free_blocks()
 
-    cpdef size_t used_bytes(self):
+    cpdef size_t used_bytes(self) except *:
         """Gets the total number of bytes used by the pool.
 
         Returns:
@@ -1683,7 +1683,7 @@ cdef class MemoryPool:
         mp = <SingleDeviceMemoryPool>self.device_pool()
         return mp.used_bytes()
 
-    cpdef size_t free_bytes(self):
+    cpdef size_t free_bytes(self) except *:
         """Gets the total number of bytes acquired but not used by the pool.
 
         Returns:
@@ -1692,7 +1692,7 @@ cdef class MemoryPool:
         mp = <SingleDeviceMemoryPool>self.device_pool()
         return mp.free_bytes()
 
-    cpdef size_t total_bytes(self):
+    cpdef size_t total_bytes(self) except *:
         """Gets the total number of bytes acquired by the pool.
 
         Returns:
@@ -1731,7 +1731,7 @@ cdef class MemoryPool:
         mp = <SingleDeviceMemoryPool>self.device_pool()
         mp.set_limit(size, fraction)
 
-    cpdef size_t get_limit(self):
+    cpdef size_t get_limit(self) except *:
         """Gets the upper limit of memory allocation of the current device.
 
         Returns:
