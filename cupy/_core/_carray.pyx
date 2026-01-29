@@ -162,7 +162,7 @@ cdef class CIndexer(function.CPointer):
 
 cdef class Indexer:
 
-    cdef void init(self, const shape_t& shape):
+    cdef void init(self, const shape_t& shape) noexcept:
         self.shape = shape
         self.size = internal.prod(shape)
         self._index_32_bits = self.size <= (1 << 31)

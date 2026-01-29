@@ -272,10 +272,10 @@ cdef class _ArgInfo:
         return _ArgInfo(
             ARG_KIND_NDARRAY, self.dtype, self.dtype, ndim, False, False)
 
-    cdef bint is_ndarray(self):
+    cdef bint is_ndarray(self) noexcept:
         return self.arg_kind == ARG_KIND_NDARRAY
 
-    cdef bint is_scalar(self):
+    cdef bint is_scalar(self) noexcept:
         return self.arg_kind == ARG_KIND_SCALAR
 
     cdef str get_c_type(self):

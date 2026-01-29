@@ -66,9 +66,9 @@ cdef class _ArgInfo:
 
     cdef _ArgInfo as_ndarray_with_ndim(self, int ndim)
 
-    cdef bint is_ndarray(self)
+    cdef bint is_ndarray(self) noexcept
 
-    cdef bint is_scalar(self)
+    cdef bint is_scalar(self) noexcept
 
     cdef str get_c_type(self)
 
