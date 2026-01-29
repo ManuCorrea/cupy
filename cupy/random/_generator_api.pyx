@@ -1041,7 +1041,7 @@ def random_raw(generator, out):
 
 cdef void _launch(
         func, int generator, intptr_t state, intptr_t strm,
-        int bsize, out, args):
+        int bsize, out, args) except *:
     cdef ssize_t size = out.size
     if size == 0:
         # Avoid issues launching empty grids in CUDA 10.2
@@ -1087,7 +1087,7 @@ cdef class _FeistelBijectionParam(CPointer):
 cdef object _feistel_bijection_with_cutoff_kernel = None
 
 
-cdef inline uint64_t get_cipher_bits(uint64_t m) nogil noexcept:
+cdef inline uint64_t get_cipher_bits(uint64_t m) noexcept nogil:
     if (m <= 256):
         return 8
     cdef uint64_t i = 0
