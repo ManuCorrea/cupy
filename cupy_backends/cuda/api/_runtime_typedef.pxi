@@ -132,16 +132,6 @@ cdef extern from *:
         ctypedef struct _MemPoolProps 'cudaMemPoolProps':
             pass  # for HIP & RTD
 
-    # Map directly to 'cudaMemLocation'
-    ctypedef struct _MemLocation 'cudaMemLocation':
-        MemLocationType type
-        int id
-
-    # Map directly to 'cudaMemPoolProps'
-    ctypedef struct _MemPoolProps 'cudaMemPoolProps':
-        MemAllocationType allocType
-        MemAllocationHandleType handleTypes
-        _MemLocation location
 
     IF 0 < CUPY_CUDA_VERSION:
         ctypedef struct _PointerAttributes 'cudaPointerAttributes':
