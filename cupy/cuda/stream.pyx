@@ -32,7 +32,7 @@ cdef class _ThreadLocal:
             self.current_stream_stack.append([default_stream])
 
     @staticmethod
-    cdef _ThreadLocal get():
+    cdef _ThreadLocal get() except*:
         try:
             tls = _thread_local.tls
         except AttributeError:
@@ -61,13 +61,13 @@ cdef class _ThreadLocal:
         backends_stream.set_current_stream_ptr(ptr, device_id)
         self.current_stream[device_id] = stream
 
-    cdef get_current_stream(self, int device_id=-1):
+    cdef get_current_stream(self, int device_id=-1) except *:
         if device_id == -1:
             device_id = runtime.getDevice()
         stream_ref = self.current_stream[device_id]
         return stream_ref
 
-    cdef intptr_t get_current_stream_ptr(self):
+    cdef intptr_t get_current_stream_ptr(self) except *:
         return backends_stream.get_current_stream_ptr()
 
 
@@ -75,7 +75,7 @@ cdef get_default_stream():
     return Stream.ptds if backends_stream.is_ptds_enabled() else Stream.null
 
 
-cdef intptr_t get_current_stream_ptr():
+cdef intptr_t get_current_stream_ptr() except *:
     """C API to get current CUDA stream pointer.
 
     Returns:
