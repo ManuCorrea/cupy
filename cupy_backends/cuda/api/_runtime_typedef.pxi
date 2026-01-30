@@ -132,7 +132,6 @@ cdef extern from *:
         ctypedef struct _MemPoolProps 'cudaMemPoolProps':
             pass  # for HIP & RTD
 
-
     IF 0 < CUPY_CUDA_VERSION:
         ctypedef struct _PointerAttributes 'cudaPointerAttributes':
             int type
