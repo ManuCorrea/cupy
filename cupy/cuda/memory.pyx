@@ -1665,7 +1665,7 @@ cdef class MemoryPool:
             DeprecationWarning)
         self.free_all_blocks()
 
-    cpdef size_t n_free_blocks(self) except *:
+    cpdef size_t n_free_blocks(self) except -1:
         """Counts the total number of free blocks.
 
         Returns:
@@ -1674,7 +1674,7 @@ cdef class MemoryPool:
         mp = <SingleDeviceMemoryPool>self.device_pool()
         return mp.n_free_blocks()
 
-    cpdef size_t used_bytes(self) except *:
+    cpdef size_t used_bytes(self) except -1:
         """Gets the total number of bytes used by the pool.
 
         Returns:
@@ -1683,7 +1683,7 @@ cdef class MemoryPool:
         mp = <SingleDeviceMemoryPool>self.device_pool()
         return mp.used_bytes()
 
-    cpdef size_t free_bytes(self) except *:
+    cpdef size_t free_bytes(self) except -1:
         """Gets the total number of bytes acquired but not used by the pool.
 
         Returns:
@@ -1692,7 +1692,7 @@ cdef class MemoryPool:
         mp = <SingleDeviceMemoryPool>self.device_pool()
         return mp.free_bytes()
 
-    cpdef size_t total_bytes(self) except *:
+    cpdef size_t total_bytes(self) except -1:
         """Gets the total number of bytes acquired by the pool.
 
         Returns:
@@ -1731,7 +1731,7 @@ cdef class MemoryPool:
         mp = <SingleDeviceMemoryPool>self.device_pool()
         mp.set_limit(size, fraction)
 
-    cpdef size_t get_limit(self) except *:
+    cpdef size_t get_limit(self) except -1:
         """Gets the upper limit of memory allocation of the current device.
 
         Returns:
