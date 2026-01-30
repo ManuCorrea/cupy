@@ -36,7 +36,7 @@ cdef class _AbstractReductionKernel:
         self, out_block_num, block_size, block_stride,
         in_args, out_args, in_shape, out_shape, types,
         map_expr, reduce_expr, post_map_expr, reduce_type,
-        stream, params) noexcept
+        stream, params) except *
 
     cdef tuple _get_expressions_and_types(
         self, list in_args, list out_args, dtype)

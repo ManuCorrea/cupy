@@ -476,7 +476,7 @@ cdef class _AbstractReductionKernel:
             self, out_block_num, block_size, block_stride,
             in_args, out_args, in_shape, out_shape, type_map,
             map_expr, reduce_expr, post_map_expr, reduce_type,
-            stream, params) noexcept:
+            stream, params) except *:
         cdef function.Function func
 
         inout_args = (
